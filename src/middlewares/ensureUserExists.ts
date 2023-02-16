@@ -1,7 +1,6 @@
 import {Request,Response, NextFunction } from "express";
 import { QueryConfig } from "pg";
 import { client } from "../database";
-import { iDataUser } from "../interfaces/createUser";
 import { AppError } from "../errors";
 
 export const ensureUserExists = async (req:Request,res: Response,next: NextFunction):Promise<Response | void> => {

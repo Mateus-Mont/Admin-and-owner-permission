@@ -1,22 +1,22 @@
 import { iDataUser, iUserWithoutPassword, userQueryResult } from "../../interfaces/createUser"
 import format from 'pg-format'
 import {client} from "../../database"
+import {returnSchemaWithoutPassword} from "../../schemas/users.schema"
 
 
 export const createUsersService=async(userData:iDataUser):Promise<iUserWithoutPassword>=>{
-    const queryString:string=format(`
 
+    const queryString:string=format(`
     INSERT INTO
        users(%I)
     VALUES(%L)
-    RETURNING id, name, email,admin,active ;
+    RETURNING*;
 
     `,
      Object.keys(userData),
      Object.values(userData))
 
-
-     const QueryResult:userQueryResult=await client.query(queryString)
-
-    return QueryResult.rows[0]
+    const QueryResult:userQueryResult=await client.query(queryString)
+    const newUser = returnSchemaWithoutPassword.parse(QueryResult.rows[0])
+    return newUser
 }

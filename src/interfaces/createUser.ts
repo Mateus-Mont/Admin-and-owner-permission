@@ -1,15 +1,12 @@
 import { QueryResult } from "pg";
+import { createUsersSchema,returnUserSchema,returnSchemaWithoutPassword } from "../schemas/users.schema"
+import  {z} from "zod"
 
-export interface iDataUser {
-  name: string;
-  email: string;
-  password: string;
-  admin: boolean;
-}
 
-export interface iDataEncrementId extends iDataUser {
-  id: number;
-}
-export type iUserWithoutPassword = Omit<iDataEncrementId, "password">
+export type iDataUser=z.infer<typeof createUsersSchema>
+export type iDataEncrementIdActive=z.infer<typeof returnUserSchema>
+
+
+export type iUserWithoutPassword=Omit<iDataEncrementIdActive,"password"> 
 export type userQueryResult = QueryResult<iUserWithoutPassword>;
-export type keysUser = "name" | "email" | "password" | "admin";
+
