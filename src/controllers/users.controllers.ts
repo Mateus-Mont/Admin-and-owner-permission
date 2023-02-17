@@ -3,6 +3,7 @@ import { iDataUser } from "../interfaces/createUser"
 import {createUsersService} from "../services/users/createUsers.service"
 import  {allUsers} from  "../services/users/allUsers.service"
 import {ensureUserExists} from "../middlewares/ensureUserExists"
+import {updateUserService}from "../services/users/updateUsers.service"
 
 
 
@@ -16,4 +17,11 @@ export const createUsersController=async(req:Request,res:Response):Promise<Respo
 export const allUsersRegisteredController=async(req:Request,res:Response):Promise<Response>=>{
     const allUsersR= await allUsers(res)
     return allUsersR
+}
+export const updataUserController=async(req:Request,res:Response):Promise<Response>=>{
+    const idUser:number=parseInt(req.params.id)
+const updateUser=req.body
+const update=await updateUserService(updateUser,idUser)
+
+    return res.status(200).json(update)
 }

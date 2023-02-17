@@ -21,8 +21,10 @@ export const handleErrors=(error:Error,req:Request,res:Response,next:NextFunctio
     if(error instanceof ZodError){
       return res.status(400).json({message:error.flatten().fieldErrors})
     }
+    console.log(error.message)
     return res.status(500).json({
       message: "Internal server error",
     });
+    
 
 }

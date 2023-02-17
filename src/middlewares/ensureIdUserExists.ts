@@ -7,14 +7,16 @@ import {AppError} from "../errors"
 
 export const ensureIdUserExists=async(req:Request,res:Response,next:NextFunction):Promise<Response | void>=>{
     const idUser:number=parseInt(req.params.id)
+
     
     const queryString:string=`
     
     SELECT
      *
     FROM
+     users
     WHERE
-     id=$1
+     id=$1;
     `
 
     const queryConfig:QueryConfig={
@@ -23,9 +25,8 @@ export const ensureIdUserExists=async(req:Request,res:Response,next:NextFunction
     }
 
     const queryResult:userQueryResult =await client.query(queryConfig)
-
     
-  if(queryResult.rows[0].id){
+  if(queryResult.rowCount===0){
     throw new AppError("User not found",404)
  }
 
