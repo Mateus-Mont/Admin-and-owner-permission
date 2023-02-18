@@ -7,10 +7,10 @@ import { iDataUpdateUser } from "../../interfaces/updateUser";
 
 export const updateUserService = async (
   req: Request,
-  id:number
-): Promise<iDataUpdateUser> => {
+  res:Response
+): Promise<iDataUpdateUser | Response> => {
 
-   
+   const idUser:number=parseInt(req.params.id)
 
 
   const queryString: string = format(
@@ -28,10 +28,10 @@ export const updateUserService = async (
 
   const queryConfig: QueryConfig = {
     text: queryString,
-    values: [id],
+    values: [idUser]
   };
 
   const queryResult=await client.query(queryConfig)
 
-  return queryResult.rows[0];
+  return queryResult.rows[0]
 };

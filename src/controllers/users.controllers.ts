@@ -19,9 +19,9 @@ export const allUsersRegisteredController=async(req:Request,res:Response):Promis
     return allUsersR
 }
 export const updataUserController=async(req:Request,res:Response):Promise<Response>=>{
-    const idUser:number=parseInt(req.params.id)
-const updateUser=req.body
-const update=await updateUserService(updateUser,idUser)
+
+
+const update=await updateUserService(req,res)
 
     return res.status(200).json(update)
 }

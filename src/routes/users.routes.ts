@@ -13,4 +13,4 @@ export const userRoutes: Router = Router()
 userRoutes.post("",ensureValidBody(createUsersSchema),ensureUserExists, createUsersController)
 userRoutes.get("",ensureTokenIsAdmin,allUsersRegisteredController)
 
-userRoutes.patch("/:id",ensureIdUserExists,updataUserController)
+userRoutes.patch("/:id",ensureIdUserExists,ensureUserExists,updataUserController)
