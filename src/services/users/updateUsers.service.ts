@@ -3,6 +3,7 @@ import { QueryConfig } from "pg";
 import format from "pg-format";
 import { object } from "zod";
 import { client } from "../../database";
+import { iDataUser } from "../../interfaces/createUser";
 import { iDataUpdateUser } from "../../interfaces/updateUser";
 
 export const updateUserService = async (
@@ -10,9 +11,11 @@ export const updateUserService = async (
   res:Response
 ): Promise<iDataUpdateUser | Response> => {
 
+  const dataBodyUpdate:iDataUpdateUser=req.body
+
+
+
    const idUser:number=parseInt(req.params.id)
-
-
   const queryString: string = format(
     `
    UPDATE
@@ -22,8 +25,8 @@ export const updateUserService = async (
     id=$1
    RETURNING*;
 `,
-    Object.keys(req.body),
-    Object.values(req.body)
+    Object.keys(dataBodyUpdate),
+    Object.values(dataBodyUpdate)
   );
 
   const queryConfig: QueryConfig = {

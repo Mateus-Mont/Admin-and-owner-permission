@@ -1,25 +1,26 @@
-import { NextFunction, Request,Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors";
-import  Jwt  from "jsonwebtoken";
+import Jwt from "jsonwebtoken";
 
-export const ensureTokenIsValid=async(req:Request,res:Response,next:NextFunction):Promise<void>=>{
+export const ensureTokenIsValid = async (req: Request, res: Response,next: NextFunction):Promise<void> => {
+  let token = req.headers.authorization;
 
-    let token=req.headers.authorization
+  if (!token) {
+    throw new AppError("Token  is missing", 401);
+  }
 
-    if(!token){
-        throw new  AppError("Token  is missing", 401)
+  token = token.split(" ")[1];
+
+  Jwt.verify(token, "CH4V3 73CR3T4", (error, decoded: any) => {
+    if (error) {
+      throw new AppError(error.message, 401);
     }
 
-    token=token.split(" ")[1]
+    console.log(decoded);
 
-    Jwt.verify(token,"CH4V3 73CR3T4",(error,decoded:any)=>{
-        if(error){
-            throw new AppError(error.message,401)
-        }
-
-   
-        return  next()
-    })
-
-
-}
+    if (decoded.sub !== req.params.id) {
+      throw new AppError("you are not the owner of this record", 401);
+    }
+    return next();
+  });
+};
