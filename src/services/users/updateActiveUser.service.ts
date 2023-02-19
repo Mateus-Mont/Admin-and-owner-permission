@@ -23,10 +23,6 @@ export const updateActiveUserService = async (req: Request): Promise<iDataUpdate
 
     const queryResult = await client.query(queryConfig)
 
-    if (queryResult.rows.length === 0) {
-        throw new AppError("User not found", 404)
-    }
-
     const userIsActive = queryResult.rows[0].active
 
     if (userIsActive) {
