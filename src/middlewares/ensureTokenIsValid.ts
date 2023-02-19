@@ -15,12 +15,14 @@ export const ensureTokenIsValid = async (req: Request, res: Response,next: NextF
     if (error) {
       throw new AppError(error.message, 401);
     }
+  
+    if(decoded.admin===true || decoded.sub===req.params.id){
 
-    console.log(decoded);
-
-    if (decoded.sub !== req.params.id) {
-      throw new AppError("you are not the owner of this record", 401);
+      return next();
     }
-    return next();
+    
+    if (decoded.sub !== req.params.id) {
+      throw new AppError("Insufficient Permission", 403);
+    }
   });
 };

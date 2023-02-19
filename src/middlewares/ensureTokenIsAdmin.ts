@@ -20,6 +20,6 @@ export const ensureTokenIsAdmin = async (req: Request,res: Response,next: NextFu
       return next();
     }
 
-    throw new AppError("Admin only permission",401)
+    throw new AppError("Admin only permission",403)
   });
 };

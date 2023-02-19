@@ -29,6 +29,7 @@ export const ensureIdUserExists=async(req:Request,res:Response,next:NextFunction
   if(queryResult.rowCount===0){
     throw new AppError("User not found",404)
  }
+ 
 
     return next()
 }

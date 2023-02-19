@@ -10,7 +10,8 @@ export const createUsersService=async(userData:iDataUser):Promise<iUserWithoutPa
     INSERT INTO
        users(%I)
     VALUES(%L)
-    RETURNING*;
+    RETURNING
+      id,name,email,admin,active;
 
     `,
      Object.keys(userData),

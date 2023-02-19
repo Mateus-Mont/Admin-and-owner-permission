@@ -4,6 +4,8 @@ import { createUsersService } from "../services/users/createUsers.service";
 import { allUsers } from "../services/users/allUsers.service";
 import { ensureUserExists } from "../middlewares/ensureUserExists";
 import { updateUserService } from "../services/users/updateUsers.service";
+import {deleteUserService}from "../services/users/deleteUsers.service"
+import{updateActiveUserService} from "../services/users/updateActiveUser.service"
 
 export const createUsersController = async (req: Request,res: Response):Promise<Response> => {
 
@@ -23,6 +25,13 @@ export const updataUserController = async (req: Request,res: Response):Promise<R
 };
 
 export const deleteUserController=async(req:Request,res:Response):Promise<Response>=>{
+ await deleteUserService(req,res)
+    return res.status(204).json()
+}
 
-    return res
+export const updataActiveUserController=async(req:Request,res:Response):Promise<Response>=>{
+
+  const updateActive=await updateActiveUserService(req,res)
+
+  return  res.status(200).json(updateActive)
 }

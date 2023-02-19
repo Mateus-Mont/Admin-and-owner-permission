@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { QueryConfig } from "pg";
 import format from "pg-format";
-import { object } from "zod";
 import { client } from "../../database";
 import { iDataUser } from "../../interfaces/createUser";
 import { iDataUpdateUser } from "../../interfaces/updateUser";
@@ -23,7 +22,8 @@ export const updateUserService = async (
    SET (%I)= ROW (%L)
    WHERE
     id=$1
-   RETURNING*;
+   RETURNING 
+    id,name,email,admin,active;
 `,
     Object.keys(dataBodyUpdate),
     Object.values(dataBodyUpdate)
