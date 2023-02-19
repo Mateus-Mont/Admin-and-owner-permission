@@ -5,16 +5,11 @@ import { client } from "../../database";
 import { iDataUser } from "../../interfaces/createUser";
 import { iDataUpdateUser } from "../../interfaces/updateUser";
 
-export const updateUserService = async (
-  req: Request,
-  res:Response
-): Promise<iDataUpdateUser | Response> => {
+export const updateUserService = async (req:Request):Promise<iDataUpdateUser> => {
 
   const dataBodyUpdate:iDataUpdateUser=req.body
 
-
-
-   const idUser:number=parseInt(req.params.id)
+  const idUser:number=parseInt(req.params.id)
   const queryString: string = format(
     `
    UPDATE

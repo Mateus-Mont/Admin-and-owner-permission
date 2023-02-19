@@ -22,6 +22,5 @@ export const ensureUserExists = async (req:Request,res: Response,next: NextFunct
   if(queryResult.rowCount>0){
      throw new AppError("E-mail already registered",409)
   }
-
   return next();  
 };

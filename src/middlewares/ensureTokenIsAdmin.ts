@@ -3,6 +3,7 @@ import { AppError } from "../errors";
 import Jwt from "jsonwebtoken";
 
 export const ensureTokenIsAdmin = async (req: Request,res: Response,next: NextFunction):Promise<void> => {
+
   let token = req.headers.authorization;
 
   if (!token) {

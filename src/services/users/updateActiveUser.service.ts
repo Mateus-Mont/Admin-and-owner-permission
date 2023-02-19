@@ -2,8 +2,9 @@ import { Request,Response } from "express";
 import { QueryConfig } from "pg";
 import { client } from "../../database";
 import { AppError } from "../../errors";
+import { iDataUpdateUser } from "../../interfaces/updateUser";
 
-export const updateActiveUserService = async (req: Request, res: Response): Promise<Response> => {
+export const updateActiveUserService = async (req: Request): Promise<iDataUpdateUser> => {
 
     const idUser: number = parseInt(req.params.id)
 
@@ -15,7 +16,6 @@ export const updateActiveUserService = async (req: Request, res: Response): Prom
     WHERE
      id=$1;
     `
-
     const queryConfig: QueryConfig = {
         text: queryString,
         values: [idUser]
@@ -42,13 +42,12 @@ export const updateActiveUserService = async (req: Request, res: Response): Prom
     RETURNING
      id,name,email,admin,active;
     `
-
     const updateQueryConfig: QueryConfig = {
         text: updateQueryString,
         values: [idUser]
     }
 
     const updateQueryResult = await client.query(updateQueryConfig)
-
+    
     return updateQueryResult.rows[0]
 }

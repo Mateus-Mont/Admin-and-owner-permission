@@ -6,9 +6,8 @@ import {AppError} from "../errors"
 
 
 export const ensureIdUserExists=async(req:Request,res:Response,next:NextFunction):Promise<Response | void>=>{
-    const idUser:number=parseInt(req.params.id)
 
-    
+    const idUser:number=parseInt(req.params.id)
     const queryString:string=`
     
     SELECT
@@ -30,6 +29,5 @@ export const ensureIdUserExists=async(req:Request,res:Response,next:NextFunction
     throw new AppError("User not found",404)
  }
  
-
     return next()
 }

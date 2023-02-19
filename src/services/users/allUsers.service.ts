@@ -17,9 +17,5 @@ export const allUsers=async(res:Response):Promise<Response>=>{
     }
 
     const queryResult:userQueryResult=await client.query(queryConfig)
-
     return res.status(200).json(queryResult.rows)
-   
-   
-
 }

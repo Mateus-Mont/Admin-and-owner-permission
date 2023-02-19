@@ -18,6 +18,5 @@ export const createUsersService=async(userData:iDataUser):Promise<iUserWithoutPa
      Object.values(userData))
 
     const QueryResult:userQueryResult=await client.query(queryString)
-  
     return QueryResult.rows[0]
 }

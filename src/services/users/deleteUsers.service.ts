@@ -4,8 +4,7 @@ import { client } from "../../database";
 
 export const deleteUserService=async(req:Request,res:Response):Promise<Response>=>{
 
-  const idUser:number=parseInt(req.params.id)
-
+    const idUser:number=parseInt(req.params.id)
 
     const queryString:string=`
     UPDATE
@@ -17,12 +16,11 @@ export const deleteUserService=async(req:Request,res:Response):Promise<Response>
     RETURNING*;
     
     `
-
     const queryConfig:QueryConfig={
         text:queryString,
         values:[idUser]
     }
 
     await client.query(queryConfig)
-return res
+    return res
 }
