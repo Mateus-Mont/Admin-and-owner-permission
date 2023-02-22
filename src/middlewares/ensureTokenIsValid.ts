@@ -15,14 +15,17 @@ export const ensureTokenIsValid = async (req: Request, res: Response,next: NextF
     if (error) {
       throw new AppError(error.message, 401);
     }
-  
+    
+    
+    
     if(decoded.admin===true || decoded.sub===req.params.id){
-
+      
       return next();
     }
     
     if (decoded.sub !== req.params.id) {
       throw new AppError("Insufficient Permission", 403);
     }
+  req.user=decoded.sub
   });
 };

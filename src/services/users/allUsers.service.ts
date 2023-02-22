@@ -2,8 +2,7 @@ import {iUserWithoutPassword, userQueryResult} from "../../interfaces/createUser
 import { Response } from "express"
 import { QueryConfig } from "pg"
 import {client} from "../../database"
-import{ensureTokenIsValid} from "../../middlewares/ensureTokenIsValid"
- 
+
 export const allUsers=async(res:Response):Promise<Response>=>{
   
     const queryString=`

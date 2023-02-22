@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { iDataUser } from "../interfaces/createUser";
 import { createUsersService } from "../services/users/createUsers.service";
 import { allUsers } from "../services/users/allUsers.service";
-import { ensureUserExists } from "../middlewares/ensureUserExists";
 import { updateUserService } from "../services/users/updateUsers.service";
 import {deleteUserService}from "../services/users/deleteUsers.service"
 import{updateActiveUserService} from "../services/users/updateActiveUser.service"
@@ -20,8 +19,8 @@ export const allUsersRegisteredController = async (req: Request,res: Response):P
 };
 
 export const getProfileUserController=async(req:Request,res:Response):Promise<Response>=>{
-  const profileUser= getProfileUserService(req)
-  return res.status(200).json(profileUser)
+  const profileUser= await getProfileUserService(req,res)
+  return profileUser
 }
 export const updataUserController = async (req: Request,res: Response):Promise<Response> => {
   const update = await updateUserService(req);

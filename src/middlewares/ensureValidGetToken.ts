@@ -1,9 +1,10 @@
+
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors";
 import Jwt from "jsonwebtoken";
 
-export const ensureTokenIsAdmin = async (req: Request,res: Response,next: NextFunction):Promise<void> => {
 
+export const ensureTokenIsValidGet = async (req: Request, res: Response,next: NextFunction):Promise<void> => {
   let token = req.headers.authorization;
 
   if (!token) {
@@ -16,12 +17,9 @@ export const ensureTokenIsAdmin = async (req: Request,res: Response,next: NextFu
     if (error) {
       throw new AppError(error.message, 401);
     }
-  
-
-    if (decoded.admin) {
-      return next();
-    }
-
-    throw new AppError("Admin only permission",403)
+    
+    
+  req.user=decoded.sub
+    return next()
   });
 };
