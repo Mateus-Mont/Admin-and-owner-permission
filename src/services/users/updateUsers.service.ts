@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { QueryConfig } from "pg";
 import format from "pg-format";
 import { client } from "../../database";
-import { iDataUser } from "../../interfaces/createUser";
 import { iDataUpdateUser } from "../../interfaces/updateUser";
 
 export const updateUserService = async (req:Request):Promise<iDataUpdateUser> => {
