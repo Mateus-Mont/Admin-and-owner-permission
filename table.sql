@@ -1,3 +1,5 @@
+CREATE DATABASE project_users;
+
 CREATE TABLE users(
 id SERIAL PRIMARY KEY,
 "name" VARCHAR (20) NOT NULL 
